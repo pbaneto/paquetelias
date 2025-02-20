@@ -11,7 +11,7 @@
     - `shipments`
       - Package shipment requests
       - Links routes with users requesting shipping
-    
+
   2. Security
     - RLS enabled on all tables
     - Policies for authenticated users
@@ -86,7 +86,7 @@ CREATE POLICY "Carriers can update own routes"
 CREATE POLICY "Users can view own shipments"
   ON shipments FOR SELECT
   USING (
-    auth.uid() = sender_id OR 
+    auth.uid() = sender_id OR
     auth.uid() IN (
       SELECT carrier_id FROM routes WHERE id = route_id
     )
@@ -124,3 +124,9 @@ CREATE TRIGGER update_shipments_updated_at
   BEFORE UPDATE ON shipments
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at();
+
+
+-- Add missing RLS policy for profile creation during signup
+CREATE POLICY "New users can insert their own profile"
+  ON profiles FOR INSERT
+  WITH CHECK (auth.uid() = id);

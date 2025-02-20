@@ -27,11 +27,22 @@ export class AuthService {
     if (authError) throw authError;
 
     if (authData.user) {
-      await this.profileRepo.create({
-        id: authData.user.id,
-        fullName,
-        phone,
-      });
+      try {
+        const profile = await this.profileRepo.create({
+          id: authData.user.id,
+          fullName,
+          phone,
+        });
+
+        return {
+          ...authData,
+          profile
+        };
+      } catch (error) {
+        // If profile creation fails, delete the auth user to maintain consistency
+        await supabase.auth.admin.deleteUser(authData.user.id);
+        throw new Error(`Failed to create profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
     }
 
     return authData;
