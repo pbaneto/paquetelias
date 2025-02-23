@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.yaml'], // Add YAML files to the asset include list
   server: {
-    port: 3000
+    port: 5173
   },
   optimizeDeps: {
     esbuildOptions: {
