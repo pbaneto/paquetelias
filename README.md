@@ -132,7 +132,7 @@ A peer-to-peer shipping platform that enables users to publish routes and reques
 4. Start the development server
    ```bash
    # Start the Vite development server
-   npm run dev
+   kill -9 $(lsof -t -i:5173) 2>/dev/null || true && npm run dev
    ```
 
 5. Access the application

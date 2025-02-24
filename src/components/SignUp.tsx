@@ -40,7 +40,7 @@ export function SignUp() {
         phone
       });
 
-      if ('profile' in result || result.user) {
+      if ('profile' in result && result.user) {
         navigate('/profile');
       }
     } catch (err) {
