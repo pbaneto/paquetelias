@@ -9,5 +9,6 @@ export const auth = {
   signInWithGoogle: authService.signInWithGoogle.bind(authService),
   signOut: authService.signOut.bind(authService),
   getCurrentUser: authService.getCurrentUser.bind(authService),
-  onAuthStateChange: authService.onAuthStateChange.bind(authService)
+  onAuthStateChange: authService.onAuthStateChange.bind(authService),
+  resetPassword: authService.resetPassword.bind(authService)
 };
